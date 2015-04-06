@@ -7,7 +7,7 @@ dependencies {
     groovy localGroovy()
 }
 
-group = 'com.novoda'
+group = 'com.novoda-jure'
 version = "1.2.1"
 
 ext {
@@ -43,20 +43,22 @@ uploadArchives {
     repositories {
         mavenDeployer {
 
-            // don't sign snapshots for now
-            if (!version.endsWith('SNAPSHOT')) {
-                beforeDeployment { deployment -> signing.signPom(deployment) }
-            }
-
-            if (project.hasProperty('nexusUsername')) {
-                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                    authentication(userName: nexusUsername, password: nexusPassword)
-                }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-                    authentication(userName: nexusUsername, password: nexusPassword)
-                }
-            }
+//            // don't sign snapshots for now
+//            if (!version.endsWith('SNAPSHOT')) {
+//                beforeDeployment { deployment -> signing.signPom(deployment) }
+//            }
+//
+//            if (project.hasProperty('nexusUsername')) {
+//                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+//                    authentication(userName: nexusUsername, password: nexusPassword)
+//                }
+//
+//                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+//                    authentication(userName: nexusUsername, password: nexusPassword)
+//                }
+//            }
+            repository(url: 'file://' + new File(System.getProperty('user.home'),
+                    '.m2/repository').absolutePath)
             uniqueVersion = false
 
             pom.project {
